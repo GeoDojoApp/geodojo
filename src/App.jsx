@@ -57,18 +57,12 @@ const[chalMode,setChalMode]=useState(false);
 const[joinCode,setJoinCode]=useState("");
 const aS=useRef(Date.now());const timerRef=useRef(null);
 const t=lang?T[lang]:T.en;const ot=lang?OT[lang]:OT.en;const rtl=lang==="ar";
-useEffect(()=>{
 // Load cloud leaderboard
 getLeaderboard(50).then(d=>setCloudLb(d||[])).catch(()=>{});
 // Subscribe to realtime score updates
 const sub=subscribeToScores(()=>{getLeaderboard(50).then(d=>setCloudLb(d||[])).catch(()=>{});});
 return()=>{supabase.removeChannel(sub);};
 },[]);
-useEffect(()=>{try{const s=localStorage.getItem("geodojo-v5");if(s){const d=JSON.parse(s);if(d.ms)sMs(d.ms);if(d.bk)sBk(d.bk);if(d.dy)sDy(d.dy);if(d.lang){sl(d.lang);sOb(5);}if(d.uN)sUN(d.uN);}}catch{}},[]);
-useEffect(()=>{localStorage.setItem('geodojo-dark',dark?'1':'0');document.body.style.background=dark?'#0F172A':'#FFFFFF';},[dark]);
-useEffect(()=>{if(pid&&lang){updateProfile(pid,{username:uN||"Anon",belt:bN(belt,lang),mastered:mc,country:userCountry}).catch(()=>{});}},[ mc,belt,lang]);
-useEffect(()=>{if(lang)localStorage.setItem("geodojo-v5",JSON.stringify({ms,bk,lang,uN,dy}));},[ms,bk,lang,uN,dy]);
-useEffect(()=>{
 if(ob===5&&!pid&&lang){
 const name=uN||"Anon";
 createProfile(name,userCountry).then(p=>{
@@ -76,7 +70,6 @@ if(p){sPid(p.id);localStorage.setItem("geodojo-pid",p.id);}
 }).catch(()=>{});
 }
 },[ob,pid,lang]);
-useEffect(()=>{if(timerActive&&timer>0)timerRef.current=setTimeout(()=>setTimer(t=>t-1),1000);if(timerActive&&timer<=0&&!se&&q){sOk(false);sSe({i:"_"});rec(false);hNo();sTo(p=>p+1);sDy(p=>p+1);setSessionResults(r=>[...r,false]);sSk(0);sFc(0);setTimeout(()=>{gen(md,pl);setTimer(10);},1500);}return()=>clearTimeout(timerRef.current);},[timer,timerActive]);
 const pl=useMemo(()=>ct==="All"?D:D.filter(c=>c.z===ct),[ct]);
 const gm=i=>{const m=ms[i];return!m||!m.s?0:Math.round((m.c/m.s)*100);};
 const mc=useMemo(()=>D.filter(c=>gm(c.i)>=80).length,[ms]);
@@ -89,9 +82,7 @@ const rec=ok=>{if(!q||q.trivia)return;sMs(p=>{const e=p[q.i]||{c:0,w:0,s:0,nd:0,
 const calcPts=(ok,el)=>ok?Math.round((100+Math.max(0,Math.round((10-el/1000)*10)))*(1+Math.min(sk,10)*0.1)):0;
 const chkT=()=>{if(ts)return;sTS(true);setTimerActive(false);const v=tv.trim();if(!v){sOk(false);sSe({i:"_"});rec(false);hNo();sTo(p=>p+1);sDy(p=>p+1);setSessionResults(r=>[...r,false]);sSk(0);sFc(0);return;}const res=fuse.search(v);const matched=res.length>0&&res[0].item.iso===q.i&&res[0].score<0.4;const exact=[q.n.en,q.n.fr,q.n.ar,q.n.es].some(n=>n&&n.toLowerCase()===v.toLowerCase());const ok=matched||exact;const el=Date.now()-aS.current;const p=calcPts(ok,el);sOk(ok);sSe({i:ok?q.i:"_"});rec(ok);sTo(x=>x+1);sDy(x=>x+1);setSessionResults(r=>[...r,ok]);setPts(x=>x+p);if(ok){hOk();sSc(x=>x+1);sSk(x=>{const n=x+1;if(n>bk)sBk(n);return n;});sFc(x=>x+1);}else{hNo();sSk(0);sFc(0);}};
 const answer=(o,idx)=>{if(se)return;setTimerActive(false);const el=Date.now()-aS.current;if(q.trivia){const ok=idx===q.ans;const p=calcPts(ok,el);sOk(ok);sSe({i:ok?"ok":"_"});sTo(x=>x+1);sDy(x=>x+1);setSessionResults(r=>[...r,ok]);setPts(x=>x+p);if(ok){hOk();sSc(x=>x+1);sSk(x=>{const n=x+1;if(n>bk)sBk(n);return n;});}else{hNo();sSk(0);}return;}sSe(o);const ok=o.i===q.i;const p=calcPts(ok,el);sOk(ok);rec(ok);sTo(x=>x+1);sDy(x=>x+1);setSessionResults(r=>[...r,ok]);setPts(x=>x+p);if(ok){hOk();sSc(x=>x+1);sSk(x=>{const n=x+1;if(n>bk)sBk(n);return n;});if(el<2000)sFc(x=>x+1);else sFc(0);}else{hNo();sSk(0);sFc(0);}};
-useEffect(()=>{if(fc>=3&&!iT)sIT(true);},[fc]);
 const nxt=()=>{gen(md,pl);setTimer(sk>=5?7:10);setTimerActive(true);};
-useEffect(()=>{if(ok_===true&&se){const t=setTimeout(()=>nxt(),700);return()=>clearTimeout(t);}},[ok_,se]);
 const start=m=>{sM(m);sSc(0);sTo(0);sSk(0);sFc(0);sIT(false);sRn(0);setPts(0);setTimer(10);setTimerActive(true);setSessionResults([]);gen(m,pl);sS("quiz");};
 const endSession=()=>{setTimerActive(false);sS("end");try{const entry={name:uN||"Anon",pts,sc,to,belt:bN(belt,lang),date:new Date().toISOString().slice(0,10)};const cur=JSON.parse(localStorage.getItem("geodojo-lb")||"[]");const nw=[entry,...cur].slice(0,50);localStorage.setItem("geodojo-lb",JSON.stringify(nw));setLb(nw);}catch{}
 if(pid){submitScore(pid,pts,sc,to,md||"flags",sk,bN(belt,lang)).then(()=>{getLeaderboard(50).then(d=>setCloudLb(d||[]));}).catch(()=>{});
@@ -100,6 +91,15 @@ if(chalMode&&chalData){submitChallengeResult(chalData.id,pid,pts,sc,to).catch(()
 const shareResults=()=>{const e=sessionResults.map(r=>r?"🟩":"🟥").join("");const rows=[];for(let i=0;i<e.length;i+=5)rows.push(e.slice(i,i+5));const txt=`🥋 GeoDojo — ${bN(belt,lang)}\n\n${rows.join("\n")}\n\n🎯 ${sc}/${to} correct\n⚡ ${pts} ${t.pts}${sk>=3?"\n🔥 "+sk+" streak":""}\n\nCan you beat me?\ngeoddojo.app`;if(navigator.share)navigator.share({text:txt}).catch(()=>{});else navigator.clipboard?.writeText(txt).then(()=>alert("Copied!")).catch(()=>{});};
 const B=({children,onClick,disabled,full,outline,c:co=$.pri,d=$.priD,big,style:s={}})=>(<button onClick={onClick} disabled={disabled} style={{padding:big?"18px 20px":"14px 18px",borderRadius:$.r,width:full?"100%":"auto",fontSize:big?18:15,fontWeight:800,textAlign:"center",background:outline?"transparent":co,color:outline?$.sub:"#FFF",border:outline?`2.5px solid ${$.bdr}`:"none",boxShadow:outline?"none":$.sh(d),opacity:disabled?.4:1,transition:"all .15s",...s}}>{children}</button>);
 const greeting=uN?uN:t.brand;const L=lang||"en";
+useEffect(()=>{
+useEffect(()=>{try{const s=localStorage.getItem("geodojo-v5");if(s){const d=JSON.parse(s);if(d.ms)sMs(d.ms);if(d.bk)sBk(d.bk);if(d.dy)sDy(d.dy);if(d.lang){sl(d.lang);sOb(5);}if(d.uN)sUN(d.uN);}}catch{}},[]);
+useEffect(()=>{localStorage.setItem('geodojo-dark',dark?'1':'0');document.body.style.background=dark?'#0F172A':'#FFFFFF';},[dark]);
+useEffect(()=>{if(pid&&lang){updateProfile(pid,{username:uN||"Anon",belt:bN(belt,lang),mastered:mc,country:userCountry}).catch(()=>{});}},[ mc,belt,lang]);
+useEffect(()=>{if(lang)localStorage.setItem("geodojo-v5",JSON.stringify({ms,bk,lang,uN,dy}));},[ms,bk,lang,uN,dy]);
+useEffect(()=>{
+useEffect(()=>{if(timerActive&&timer>0)timerRef.current=setTimeout(()=>setTimer(t=>t-1),1000);if(timerActive&&timer<=0&&!se&&q){sOk(false);sSe({i:"_"});rec(false);hNo();sTo(p=>p+1);sDy(p=>p+1);setSessionResults(r=>[...r,false]);sSk(0);sFc(0);setTimeout(()=>{gen(md,pl);setTimer(10);},1500);}return()=>clearTimeout(timerRef.current);},[timer,timerActive]);
+useEffect(()=>{if(fc>=3&&!iT)sIT(true);},[fc]);
+useEffect(()=>{if(ok_===true&&se){const t=setTimeout(()=>nxt(),700);return()=>clearTimeout(t);}},[ok_,se]);
 // HEADSPACE ONBOARDING
 if(ob<5){
 if(ob===-1)return(<div style={{minHeight:"100vh",background:$.bg,display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{textAlign:"center",padding:"0 32px",maxWidth:400}}><img src="/icon-192.png" alt="GeoDojo" style={{width:100,height:100,borderRadius:25,margin:"0 auto 24px",objectFit:"contain"}} /><h1 style={{fontSize:32,fontWeight:900,color:$.ink,marginBottom:8}}>GeoDojo</h1><p style={{fontSize:17,color:$.sub,fontWeight:700,marginBottom:8,lineHeight:1.4}}>How well do you know the world?</p><p style={{fontSize:13,color:$.mu,marginBottom:40}}>Master flags, capitals & geography</p><B full big onClick={()=>sOb(0)}>Discover</B><div style={{marginTop:16,fontSize:12,color:$.mu}}>No account needed</div></div></div>);
