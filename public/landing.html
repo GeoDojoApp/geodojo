@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GeoDojo — Master world geography with smart quizzes. Learn flags, capitals, and trivia. Earn your Black Belt.">
+<meta property="og:title" content="GeoDojo — How well do you know the world?">
+<meta property="og:description" content="Master flags, capitals & geography. Earn your Black Belt. Challenge friends worldwide.">
+<meta property="og:image" content="https://geodojo.app/icon-512.png">
+<meta property="og:url" content="https://geodojo.app">
+<meta name="twitter:card" content="summary_large_image">
+<title>GeoDojo — Master World Geography</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#FFFFFF;color:#1A1A2E;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+.wrap{max-width:800px;margin:0 auto;padding:0 24px;}
+
+/* HERO */
+.hero{padding:80px 0 60px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,#FFE8E8 0%,transparent 70%);z-index:0;}
+.hero-content{position:relative;z-index:1;}
+.hero img{width:100px;height:100px;border-radius:25px;margin-bottom:20px;}
+.hero h1{font-size:42px;font-weight:900;color:#1A1A2E;margin-bottom:8px;letter-spacing:-1px;line-height:1.1;}
+.hero h1 span{color:#FF6B6B;}
+.hero p{font-size:18px;color:#4A4A6A;font-weight:600;margin-bottom:32px;line-height:1.5;}
+.cta{display:inline-block;padding:18px 40px;background:#FF6B6B;color:#FFF;font-size:18px;font-weight:800;border-radius:16px;box-shadow:0 5px 0 0 #EE5A5A;transition:transform .15s;}
+.cta:hover{transform:translateY(-2px);}
+.cta:active{transform:translateY(2px);box-shadow:0 2px 0 0 #EE5A5A;}
+.sub-cta{display:block;margin-top:12px;font-size:13px;color:#9494B0;font-weight:600;}
+
+/* STATS BAR */
+.stats{display:flex;justify-content:center;gap:40px;padding:40px 0;border-top:2px solid #F4F6F8;border-bottom:2px solid #F4F6F8;}
+.stat{text-align:center;}
+.stat-num{font-size:32px;font-weight:900;color:#FF6B6B;}
+.stat-label{font-size:12px;font-weight:700;color:#9494B0;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px;}
+
+/* FEATURES */
+.features{padding:60px 0;}
+.features h2{text-align:center;font-size:28px;font-weight:900;color:#1A1A2E;margin-bottom:8px;}
+.features .sub{text-align:center;font-size:14px;color:#4A4A6A;margin-bottom:40px;}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.feature-card{background:#FFFFFF;border:2.5px solid #E8ECF0;border-radius:16px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s;}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.1);}
+.feature-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:22px;font-weight:800;color:#FFF;}
+.feature-card h3{font-size:16px;font-weight:800;color:#1A1A2E;margin-bottom:4px;}
+.feature-card p{font-size:13px;color:#4A4A6A;line-height:1.5;}
+
+/* BELT SECTION */
+.belts{padding:60px 0;background:#F4F6F8;margin:0 -24px;padding-left:24px;padding-right:24px;}
+.belts h2{text-align:center;font-size:28px;font-weight:900;color:#1A1A2E;margin-bottom:8px;}
+.belts .sub{text-align:center;font-size:14px;color:#4A4A6A;margin-bottom:32px;}
+.belt-row{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;max-width:600px;margin:0 auto;}
+.belt-chip{padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#FFF;display:flex;align-items:center;gap:6px;}
+.belt-dot{width:10px;height:10px;border-radius:5px;background:rgba(255,255,255,.4);}
+
+/* HOW IT WORKS */
+.how{padding:60px 0;}
+.how h2{text-align:center;font-size:28px;font-weight:900;color:#1A1A2E;margin-bottom:32px;}
+.steps{display:flex;flex-direction:column;gap:20px;max-width:500px;margin:0 auto;}
+.step{display:flex;align-items:flex-start;gap:14px;}
+.step-num{width:36px;height:36px;border-radius:10px;background:#FF6B6B;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;flex-shrink:0;box-shadow:0 3px 0 0 #EE5A5A;}
+.step h3{font-size:15px;font-weight:800;color:#1A1A2E;margin-bottom:2px;}
+.step p{font-size:13px;color:#4A4A6A;line-height:1.5;}
+
+/* FINAL CTA */
+.final-cta{padding:60px 0;text-align:center;background:linear-gradient(180deg,#FFFFFF 0%,#FFE8E8 100%);margin:0 -24px;padding-left:24px;padding-right:24px;}
+.final-cta h2{font-size:28px;font-weight:900;color:#1A1A2E;margin-bottom:8px;}
+.final-cta p{font-size:14px;color:#4A4A6A;margin-bottom:24px;}
+
+/* FOOTER */
+footer{padding:32px 0;text-align:center;border-top:2px solid #F4F6F8;}
+footer a{color:#9494B0;font-size:12px;font-weight:600;margin:0 12px;}
+footer a:hover{color:#FF6B6B;}
+.footer-brand{font-size:14px;font-weight:800;color:#1A1A2E;margin-bottom:8px;}
+
+@media(max-width:600px){
+.hero h1{font-size:30px;}
+.hero p{font-size:15px;}
+.stats{gap:20px;flex-wrap:wrap;}
+.stat-num{font-size:24px;}
+.feature-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<section class="hero">
+<div class="hero-content">
+<img src="/icon-192.png" alt="GeoDojo">
+<h1>How well do you <span>know the world?</span></h1>
+<p>Master flags, capitals and world trivia. Earn your Black Belt. Challenge friends on the global leaderboard.</p>
+<a href="/" class="cta">Start Training - Free</a>
+<span class="sub-cta">No account needed. Play instantly.</span>
+</div>
+</section>
+
+<section class="stats">
+<div class="stat"><div class="stat-num">195</div><div class="stat-label">Countries</div></div>
+<div class="stat"><div class="stat-num">200+</div><div class="stat-label">Trivia Questions</div></div>
+<div class="stat"><div class="stat-num">4</div><div class="stat-label">Languages</div></div>
+<div class="stat"><div class="stat-num">8</div><div class="stat-label">Belt Ranks</div></div>
+</section>
+
+<section class="features">
+<h2>Five ways to train</h2>
+<p class="sub">Every mode is designed to make geography stick in your brain.</p>
+<div class="feature-grid">
+<div class="feature-card">
+<div class="feature-icon" style="background:#FF6B6B;box-shadow:0 3px 0 0 #EE5A5A;">F</div>
+<h3>Flag Training</h3>
+<p>See a flag, pick the country. Confuser mode shows you similar flags side by side.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon" style="background:#5B7FFF;box-shadow:0 3px 0 0 #4A6AEE;">C</div>
+<h3>Capital Training</h3>
+<p>Canberra or Sydney? Brasilia or Rio? Learn the tricky capitals that fool everyone.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon" style="background:#FFB347;box-shadow:0 3px 0 0 #EEA030;">T</div>
+<h3>World Trivia</h3>
+<p>200+ questions on landmarks, food origins, sports geography, and world records.</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon" style="background:#9B59B6;box-shadow:0 3px 0 0 #8E44AD;">K</div>
+<h3>Advanced Kata</h3>
+<p>Chad vs Romania. Monaco vs Indonesia. Can you tell the nearly-identical flags apart?</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon" style="background:#20B2AA;box-shadow:0 3px 0 0 #1A9690;">S</div>
+<h3>Training Grounds</h3>
+<p>Browse all 195 countries with flag meanings, fun facts, and confuser warnings.</p>
+</div>
+</div>
+</section>
+</div>
+
+<section class="belts">
+<div class="wrap">
+<h2>Earn your Belt</h2>
+<p class="sub">Start as a White Belt. Master countries to climb the ranks.</p>
+<div class="belt-row">
+<div class="belt-chip" style="background:#B0BEC5;"><span class="belt-dot"></span>White</div>
+<div class="belt-chip" style="background:#EAB308;"><span class="belt-dot"></span>Yellow</div>
+<div class="belt-chip" style="background:#F97316;"><span class="belt-dot"></span>Orange</div>
+<div class="belt-chip" style="background:#10B981;"><span class="belt-dot"></span>Green</div>
+<div class="belt-chip" style="background:#3B82F6;"><span class="belt-dot"></span>Blue</div>
+<div class="belt-chip" style="background:#A855F7;"><span class="belt-dot"></span>Purple</div>
+<div class="belt-chip" style="background:#92400E;"><span class="belt-dot"></span>Brown</div>
+<div class="belt-chip" style="background:#1E293B;"><span class="belt-dot"></span>Black</div>
+</div>
+</div>
+</section>
+
+<div class="wrap">
+<section class="how">
+<h2>How it works</h2>
+<div class="steps">
+<div class="step"><div class="step-num">1</div><div><h3>Pick your language</h3><p>English, French, Spanish, or Arabic. Full RTL support.</p></div></div>
+<div class="step"><div class="step-num">2</div><div><h3>Choose a training mode</h3><p>Flags, capitals, trivia, or the confuser challenge.</p></div></div>
+<div class="step"><div class="step-num">3</div><div><h3>Answer 20 questions</h3><p>10-second timer per question. Earn points for speed and streaks.</p></div></div>
+<div class="step"><div class="step-num">4</div><div><h3>Earn your belt and share</h3><p>Track your progress, unlock achievements, and challenge friends.</p></div></div>
+</div>
+</section>
+</div>
+
+<section class="final-cta">
+<div class="wrap">
+<h2>Ready to begin?</h2>
+<p>Join the Dojo. It's free. No signup required.</p>
+<a href="/" class="cta">Start Training Now</a>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+<div class="footer-brand">GeoDojo</div>
+<a href="/privacy.html">Privacy</a>
+<a href="/terms.html">Terms</a>
+<div style="margin-top:12px;font-size:11px;color:#9494B0;">Made in Morocco with care. 2026.</div>
+</div>
+</footer>
+
+</body>
+</html>
